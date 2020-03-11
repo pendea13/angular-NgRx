@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {AuthType, LoginInterface, RegisterInterface} from '../models/auth';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {UserInterface} from '../models/user';
+import {mergeMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +15,14 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  private auth(authType: AuthType, data: LoginInterface | RegisterInterface): Observable<UserInterface> {
+  auth(authType: AuthType, data: LoginInterface | RegisterInterface): Observable<UserInterface> {
 
-    return this.http.post<UserInterface>(`${this.api}/${authType}`, data);
-  }
-
-  login(data: LoginInterface): Observable<UserInterface> {
-
-    return this.auth('login', data);
-  }
-
-  register(data: RegisterInterface): Observable<UserInterface> {
-
-    return this.auth('register', data);
+    return this.http.post<UserInterface>(`${this.api}/${authType}`, data).pipe(
+      mergeMap((user: UserInterface) => {
+        this.token = user.token;
+        return of(user);
+      })
+    );
   }
 
   whoami() {
