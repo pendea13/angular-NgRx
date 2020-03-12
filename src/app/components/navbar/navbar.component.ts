@@ -20,8 +20,8 @@ export class NavbarComponent {
       icon: 'fa fa-home'
     },
     {
-      label: 'Comments',
-      routerLink: ['/comments']
+      label: 'Posts',
+      routerLink: ['/posts']
     },
     {
       label: 'Users',

@@ -1,0 +1,34 @@
+<p-card>
+  <div class="Post">
+    <div class="Post-header">
+      <h2 [routerLink]="['/posts', post.id]">{{ post.title }}</h2>
+    </div>
+
+    <div class="Post-options" *ngIf="displayOptions">
+      <button
+        pButton
+        [routerLink]="['/posts', post.id, 'edit']"
+        icon="fa fa-plus"
+        class="ui-button-info"
+      ></button>
+<!--      <button-->
+<!--        pButton-->
+<!--        (click)="onDelete.emit()"-->
+<!--        icon="fa fa-times"-->
+<!--        class="ui-button-danger"-->
+<!--      ></button>-->
+    </div>
+  </div>
+  <p class="Post-description">{{ post.description }}</p>
+
+  <div class="Post-footer">
+    <p>
+      Created by <a>{{ post.author?.username }}</a> on {{ post.created | date }}
+    </p>
+    <p>
+      <a [routerLink]="['/posts', post.id]"
+      >comments: ({{ post.comments?.length || 0 }})</a
+      >
+    </p>
+  </div>
+</p-card>

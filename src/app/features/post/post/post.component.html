@@ -1,0 +1,43 @@
+<div *ngIf="post">
+  <app-post
+    [post]="post"
+    [displayOptions]="post.author.id === currentUser?.id"
+  ></app-post>
+
+  <button
+    *ngIf="!showForm"
+    pButton
+    label="Add Comment"
+    class="ui-button-info Comment-button"
+    (click)="showForm = !showForm"
+  ></button>
+  <form *ngIf="showForm" class="Comment-form" (ngSubmit)="submit()">
+    <textarea
+      pInputTextarea
+      rows="5"
+      name="comment"
+      placeholder="Enter comment here..."
+      [(ngModel)]="comment"
+    ></textarea>
+
+    <div class="Comment-form-buttons">
+      <button
+        pButton
+        type="button"
+        label="Cancel"
+        class="ui-button-danger"
+        (click)="showForm = !showForm"
+      ></button>
+      <button
+        pButton
+        type="submit"
+        label="Save"
+        class="ui-button-info"
+      ></button>
+    </div>
+  </form>
+
+  <p-card *ngFor="let comment of post?.comments">{{ comment.description }} <p>
+    Created by <a>{{ comment.author?.username }}</a> on {{ comment.created | date }}
+  </p></p-card>
+</div>

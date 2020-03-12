@@ -1,0 +1,23 @@
+<div class="Posts-options">
+  <button pButton icon="fa fa-arrow-left"></button>
+
+  <button
+    *ngIf="currentUser"
+    pButton
+    [routerLink]="['/posts', 'new']"
+    label="Create New Post"
+    class="ui-button-info"
+  ></button>
+
+  <button pButton icon="fa fa-arrow-right"></button>
+</div>
+
+<p-progressSpinner *ngIf="(loader | async)"></p-progressSpinner>
+
+<div *ngIf="!(loader | async)">
+  <app-post
+    *ngFor="let post of (posts | async)"
+    [post]="post"
+    [displayOptions]="post.author.id === currentUser?.id"
+  ></app-post>
+</div>

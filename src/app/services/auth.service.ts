@@ -5,11 +5,12 @@ import {AuthType, LoginInterface, RegisterInterface} from '../models/auth';
 import {Observable, of} from 'rxjs';
 import {UserInterface} from '../models/user';
 import {mergeMap} from 'rxjs/operators';
+import {CanActivate} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements CanActivate {
   private api: string = environment.api_server + '/auth';
 
   constructor(private http: HttpClient) {
@@ -43,5 +44,11 @@ export class AuthService {
     } else {
       localStorage.clear();
     }
+  }
+  canActivate() {
+    if (this.token) {
+      return true;
+    }
+    return false;
   }
 }

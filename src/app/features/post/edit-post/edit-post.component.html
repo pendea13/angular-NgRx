@@ -1,0 +1,14 @@
+<h2>Edit Post</h2>
+
+<p-progressSpinner
+  *ngIf="(loader | async) || processSubmission"
+></p-progressSpinner>
+
+<div *ngIf="post && !processSubmission">
+  <app-post [post]="post" [displayOptions]="true"></app-post>
+
+  <app-editable-post
+    [post]="post"
+    (onSubmit)="submit($event)"
+  ></app-editable-post>
+</div>

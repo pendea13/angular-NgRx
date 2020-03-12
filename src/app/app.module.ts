@@ -12,6 +12,7 @@ import {AppStoreModule} from './store/app-store.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NavbarComponent} from './components/navbar/navbar.component';
+import {UUIDGuard} from './services/uuid.guard';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {NavbarComponent} from './components/navbar/navbar.component';
   ],
   providers: [
     AuthService,
-    ApiService
+    ApiService,
+    UUIDGuard
   ],
   bootstrap: [AppComponent]
 })

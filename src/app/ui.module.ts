@@ -10,6 +10,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenubarModule } from 'primeng/menubar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
+import {PostComponent} from './components/post/post.component';
+import { EditablePostComponent } from './components/editable-post/editable-post.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { ToastModule } from 'primeng/toast';
   exports: [
     ButtonModule,
     CardModule,
+    PostComponent,
+    EditablePostComponent,
     InputTextModule,
     InputTextareaModule,
     MenubarModule,
@@ -34,6 +38,6 @@ import { ToastModule } from 'primeng/toast';
     ToastModule
   ],
   providers: [MessageService],
-  declarations: []
+  declarations: [PostComponent, EditablePostComponent]
 })
 export class UIModule {}

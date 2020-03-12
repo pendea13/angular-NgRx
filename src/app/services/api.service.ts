@@ -5,6 +5,7 @@ import {AuthService} from './auth.service';
 import {Observable} from 'rxjs';
 import {UserInterface} from '../models/user';
 import {CommentCreateInterface, CommentInterface} from '../models/comment';
+import {PostDTO, PostInterface} from '../models/post';
 
 @Injectable({
   providedIn: 'root'
@@ -21,18 +22,41 @@ export class ApiService {
     return this.request('GET', endpoint);
   }
 
-  getComments(page?: string): Observable<CommentInterface[]> {
-    const endpoint = page ? `comment?page=${page}` : 'users';
+  getUser(username: string): Observable<UserInterface> {
+    return this.request('GET', `users/${username}`);
+  }
+
+  getPosts(page?: string): Observable<PostInterface[]> {
+    const endpoint = page ? `posts?page=${page}` : 'posts';
 
     return this.request('GET', endpoint);
   }
 
-  createComment(data: CommentCreateInterface): Observable<CommentInterface> {
-    return this.request('POST', 'comment', data);
+  getPost(id: string): Observable<PostInterface> {
+    return this.request('GET', `post/${id}`);
   }
 
-  updateComment(data: CommentCreateInterface): Observable<CommentInterface> {
-    return this.request('PUT', 'comment', data);
+  createPost(data: PostDTO): Observable<PostInterface> {
+    return this.request('POST', 'post', data);
+  }
+
+  updatePost(id: string, data: Partial<PostDTO>): Observable<PostInterface> {
+    return this.request('PUT', `post/${id}`, data);
+  }
+
+  getComments(page?: string): Observable<CommentInterface[]> {
+    const endpoint = page ? `comment?page=${page}` : 'comment';
+
+    return this.request('GET', endpoint);
+  }
+
+
+  createComment(postId: string, data: CommentCreateInterface): Observable<CommentInterface> {
+    return this.request('POST', `comment/${postId}`, data);
+  }
+
+  updateComment(id: string, data: CommentCreateInterface): Observable<CommentInterface> {
+    return this.request('PUT', `comment/${id}`, data);
   }
 
   private request(method: string, endpoint: string, body?: any): Observable<any> {
